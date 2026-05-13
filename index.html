@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>おてがる整体</title>
+    <meta name="description" content="忙しい日々を癒やす、火曜日・水曜日限定の隠れ家整体予約サイト。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">整</div>
+                おてがる整体
+            </a>
+            <nav class="nav">
+                <a href="index.html" style="color: var(--primary)">ホーム</a>
+                <a href="booking.html">ご予約</a>
+                <a href="confirm.html">予約確認</a>
+                <a href="booking.html" class="btn-primary-small">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><line x1="12" y1="14" x2="12" y2="18"></line><line x1="10" y1="16" x2="14" y2="16"></line></svg>
+                    予約する
+                </a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+        <div class="mobile-nav" id="mobile-nav">
+            <a href="index.html" style="background: rgba(234,88,12,0.1); color: var(--primary);">ホーム</a>
+            <a href="booking.html">ご予約</a>
+            <a href="confirm.html">予約確認</a>
+            <a href="booking.html" class="btn-primary-small" style="text-align: center; justify-content: center; margin-top: 4px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                予約する
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" style="position: relative;">
+        <div style="position: absolute; inset: 0; overflow: hidden; background: #000;">
+            <img src="https://media.base44.com/images/public/6a02ab8f7236bafb450eb2d2/83a5b5573_generated_480a2807.png" alt="Hero" style="width: 100%; height: 100%; object-fit: cover;">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.5), rgba(0,0,0,0.3));"></div>
+        </div>
+        <div class="container" style="position: relative; z-index: 10;">
+            <div class="hero-content">
+                <div class="hero-badge">毎週 火・水曜日 営業</div>
+                <h1 class="hero-title">日々の疲れを、<br>手軽にリセット。</h1>
+                <p class="hero-subtitle">おてがる整体は、一人ひとりに寄り添った丁寧な施術で、 あなたの心と体の健康をサポートします。</p>
+                <div class="hero-buttons">
+                    <a href="booking.html" class="btn-primary-large" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        予約する
+                    </a>
+                    <a href="#services" class="btn-ghost-hero">メニューを見る</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="menu-section" id="services">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 40px;">
+                <h2 class="section-title">施術メニュー</h2>
+                <p class="subtitle" style="margin-bottom: 0;">お悩みに合わせてお選びいただけます</p>
+            </div>
+            
+            <div class="menu-grid">
+                <!-- Menu Card 1 -->
+                <div class="menu-card">
+                    <div class="menu-icon-wrapper" style="margin-bottom: 16px;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
+                    </div>
+                    <div class="menu-header">
+                        <h3>全身整体 <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);">(60分)</span></h3>
+                        <span class="menu-price">¥6,000</span>
+                    </div>
+                    <p>頭から足先まで全身をじっくりほぐします。慢性的な疲れやコリに。</p>
+                    <a href="booking.html?autoMenu=全身整体" class="menu-book-link">予約する &rarr;</a>
+                </div>
+                <!-- Menu Card 2 -->
+                <div class="menu-card">
+                    <div class="menu-icon-wrapper" style="margin-bottom: 16px;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                    </div>
+                    <div class="menu-header">
+                        <h3>上半身集中 <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);">(40分)</span></h3>
+                        <span class="menu-price">¥4,500</span>
+                    </div>
+                    <p>デスクワークの方に。肩・首・腰を重点的にケアします。</p>
+                    <a href="booking.html?autoMenu=上半身集中" class="menu-book-link">予約する &rarr;</a>
+                </div>
+                <!-- Menu Card 3 -->
+                <div class="menu-card">
+                    <div class="menu-icon-wrapper" style="margin-bottom: 16px;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2-1 4-2 7-2s5 1 7 2a1 1 0 0 1 1 1z"></path></svg>
+                    </div>
+                    <div class="menu-header">
+                        <h3>下半身集中 <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);">(40分)</span></h3>
+                        <span class="menu-price">¥4,500</span>
+                    </div>
+                    <p>立ち仕事の方に。腰・股関節・脚の疲れをリセットします。</p>
+                    <a href="booking.html?autoMenu=下半身集中" class="menu-book-link">予約する &rarr;</a>
+                </div>
+                <!-- Menu Card 4 -->
+                <div class="menu-card">
+                    <div class="menu-icon-wrapper" style="margin-bottom: 16px;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
+                    </div>
+                    <div class="menu-header">
+                        <h3>クイック整体 <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);">(30分)</span></h3>
+                        <span class="menu-price">¥3,500</span>
+                    </div>
+                    <p>お時間がない方にもおすすめ。短時間で効率的にリフレッシュ。</p>
+                    <a href="booking.html?autoMenu=クイック整体" class="menu-book-link">予約する &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="info-section">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">サロン情報</h2>
+                <p class="subtitle">お気軽にお越しください</p>
+            </div>
+            
+            <a href="https://lin.ee/ddFvc0y" target="_blank" class="btn-line">
+                <strong>LINE</strong> 公式LINEでお問い合わせ・ご相談はこちら
+            </a>
+
+            <div class="cards-grid">
+                <!-- Card 1 -->
+                <div class="info-card">
+                    <div class="icon-circle">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </div>
+                    <h3>営業日</h3>
+                    <p>毎週 火曜日・水曜日</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="info-card">
+                    <div class="icon-circle">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <h3>営業時間</h3>
+                    <p>10:00 〜 18:00</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="info-card">
+                    <div class="icon-circle">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    </div>
+                    <h3>住所</h3>
+                    <p>仙台市青葉区一番町２丁目２<br>－１１ ＴＫビル 6F</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="info-card">
+                    <div class="icon-circle">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </div>
+                    <h3>Instagram</h3>
+                    <p>@otegaru_body</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" style="padding-bottom: 100px;">
+        <div class="container text-center">
+            <h2 class="section-title">お気軽にご予約ください</h2>
+            <p class="subtitle" style="margin-bottom: 24px;">オンラインで24時間いつでも予約が可能です。<br>あなたのお越しをお待ちしております。</p>
+            <a href="booking.html" class="btn-primary-large" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                今すぐ予約する
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-column">
+                <div class="footer-title">おてがる整体</div>
+                <p>日々の疲れをリセット。</p>
+            </div>
+            <div class="footer-column">
+                <div class="footer-title">営業情報</div>
+                <ul>
+                    <li>毎週 火曜日・水曜日 10:00〜18:00</li>
+                    <li>仙台市青葉区一番町２丁目２－１１ ＴＫビル 6F</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <div class="footer-title">お問い合わせ・SNS</div>
+                <ul>
+                    <li><a href="https://lin.ee/ddFvc0y" target="_blank">公式LINE</a></li>
+                    <li><a href="https://www.instagram.com/otegaru_body/" target="_blank">Instagram (@otegaru_body)</a></li>
+                </ul>
+            </div>
+            <div class="footer-copyright">
+                © 2026 おてがる整体. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

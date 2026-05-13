@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ご予約 | おてがる整体</title>
+    <meta name="description" content="オンラインで24時間いつでも予約が可能です。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">整</div>
+                おてがる整体
+            </a>
+            <nav class="nav">
+                <a href="index.html">ホーム</a>
+                <a href="booking.html" style="color: var(--primary)">ご予約</a>
+                <a href="confirm.html">予約確認</a>
+                <a href="booking.html" class="btn-primary-small">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><line x1="12" y1="14" x2="12" y2="18"></line><line x1="10" y1="16" x2="14" y2="16"></line></svg>
+                    予約する
+                </a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+        <div class="mobile-nav" id="mobile-nav">
+            <a href="index.html">ホーム</a>
+            <a href="booking.html" style="background: rgba(234,88,12,0.1); color: var(--primary);">ご予約</a>
+            <a href="confirm.html">予約確認</a>
+            <a href="booking.html" class="btn-primary-small" style="text-align: center; justify-content: center; margin-top: 4px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                予約する
+            </a>
+        </div>
+    </header>
+
+    <!-- Booking Section -->
+    <section class="cta-section" id="booking" style="padding-top: 80px;">
+        <div class="container">
+            <!-- The intro section shown before the stepper -->
+            <div class="text-center" id="booking-intro" style="margin-bottom: 24px;">
+                <div style="text-align: left; margin-bottom: 20px;">
+                    <a href="index.html" class="back-link" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 4px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+                        ホームに戻る
+                    </a>
+                </div>
+                <h1 class="page-title" style="margin-bottom: 12px; font-size: 1.8rem;">ご予約</h1>
+                <p style="color: var(--text-muted); margin-bottom: 40px;">日付・時間・メニューを選んで、お客様情報をご入力ください。</p>
+            </div>
+
+            <!-- Booking Flow Area -->
+            <div id="booking-flow" class="booking-flow" style="display:block;">
+                <!-- Step 1: Date -->
+                <div class="step-container" id="step-1">
+                    <h3>① 日付を選択</h3>
+                    <div class="calendar-container" id="calendar-container">
+                        <div class="calendar-header">
+                            <button type="button" id="prev-month">&lt;</button>
+                            <h4 id="calendar-month-year">2026年5月</h4>
+                            <button type="button" id="next-month">&gt;</button>
+                        </div>
+                        <div class="calendar-days-header">
+                            <div class="text-red-500">日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div class="text-blue-500">土</div>
+                        </div>
+                        <div class="calendar-grid" id="calendar-grid">
+                            <!-- JS will inject days here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Time -->
+                <div class="step-container hidden-step" id="step-2">
+                    <h3>② 時間を選択</h3>
+                    <div class="selection-grid time-grid" id="time-grid">
+                        <button class="select-btn time-btn" data-time="10:00"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 10:00</button>
+                        <button class="select-btn time-btn" data-time="10:30"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 10:30</button>
+                        <button class="select-btn time-btn" data-time="11:00"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 11:00</button>
+                        <button class="select-btn time-btn" data-time="11:30"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 11:30</button>
+                        <button class="select-btn time-btn" data-time="12:00"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 12:00</button>
+                        <button class="select-btn time-btn" data-time="12:30"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 12:30</button>
+                        <button class="select-btn time-btn" data-time="13:00"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 13:00</button>
+                        <button class="select-btn time-btn" data-time="13:30"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 13:30</button>
+                        <button class="select-btn time-btn" data-time="14:00"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 14:00</button>
+                        <button class="select-btn time-btn" data-time="14:30"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 14:30</button>
+                        <button class="select-btn time-btn" data-time="15:00"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 15:00</button>
+                        <button class="select-btn time-btn" data-time="15:30"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 15:30</button>
+                        <button class="select-btn time-btn" data-time="16:00"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 16:00</button>
+                        <button class="select-btn time-btn" data-time="16:30"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 16:30</button>
+                        <button class="select-btn time-btn" data-time="17:00"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 17:00</button>
+                        <button class="select-btn time-btn" data-time="17:30"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 17:30</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Menu -->
+                <div class="step-container hidden-step" id="step-3">
+                    <h3>③ メニューを選択</h3>
+                    <div class="booking-menu-grid" id="menu-grid">
+                        <div class="booking-menu-card menu-btn" data-menu="全身整体（60分）">
+                            <div class="bmc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                            <div class="bmc-content">
+                                <h4>全身整体（60分）</h4>
+                                <p>全身をじっくりほぐします</p>
+                                <div class="bmc-price">¥6,000</div>
+                            </div>
+                        </div>
+                        <div class="booking-menu-card menu-btn" data-menu="上半身集中（40分）">
+                            <div class="bmc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                            <div class="bmc-content">
+                                <h4>上半身集中（40分）</h4>
+                                <p>肩・首・腰を重点的にケア</p>
+                                <div class="bmc-price">¥4,500</div>
+                            </div>
+                        </div>
+                        <div class="booking-menu-card menu-btn" data-menu="下半身集中（40分）">
+                            <div class="bmc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                            <div class="bmc-content">
+                                <h4>下半身集中（40分）</h4>
+                                <p>腰・脚のお悩みに</p>
+                                <div class="bmc-price">¥4,500</div>
+                            </div>
+                        </div>
+                        <div class="booking-menu-card menu-btn" data-menu="クイック整体（30分）">
+                            <div class="bmc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                            <div class="bmc-content">
+                                <h4>クイック整体（30分）</h4>
+                                <p>お時間がない方におすすめ</p>
+                                <div class="bmc-price">¥3,500</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Customer Info -->
+                <div class="step-container hidden-step" id="step-4">
+                    <h3>④ お客様情報のご入力</h3>
+                    <div class="form-wrapper">
+                        <div class="summary-box">
+                            <h4>選択内容</h4>
+                            <p>日時: <span id="summary-datetime">-</span></p>
+                            <p>メニュー: <span id="summary-menu">-</span></p>
+                        </div>
+                        <form id="final-booking-form" action="complete.html" method="GET">
+                            <div class="form-group">
+                                <label for="cust-name">お名前 <span class="required">必須</span></label>
+                                <input type="text" id="cust-name" required placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="cust-phone">電話番号 <span class="required">必須</span></label>
+                                <input type="tel" id="cust-phone" required placeholder="例: 09012345678（ハイフンなし）" pattern="^[0-9]+$" title="ハイフンなしの半角数字のみで入力してください">
+                            </div>
+                            <div class="form-group">
+                                <label for="cust-email">メールアドレス <span class="required">必須</span></label>
+                                <input type="email" id="cust-email" required placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="cust-notes">備考・ご要望</label>
+                                <textarea id="cust-notes" rows="3" placeholder=""></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">予約を確定する</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-column">
+                <div class="footer-title">おてがる整体</div>
+                <p>日々の疲れをリセット。</p>
+            </div>
+            <div class="footer-column">
+                <div class="footer-title">営業情報</div>
+                <ul>
+                    <li>毎週 火曜日・水曜日 10:00〜18:00</li>
+                    <li>仙台市青葉区一番町２丁目２－１１ ＴＫビル 6F</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <div class="footer-title">お問い合わせ・SNS</div>
+                <ul>
+                    <li><a href="https://lin.ee/ddFvc0y" target="_blank">公式LINE</a></li>
+                    <li><a href="https://www.instagram.com/otegaru_body/" target="_blank">Instagram (@otegaru_body)</a></li>
+                </ul>
+            </div>
+            <div class="footer-copyright">
+                © 2026 おてがる整体. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Check URL parameter to auto-select a menu if came from index.html
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const autoMenu = urlParams.get('autoMenu');
+            if(autoMenu) {
+                // Open flow
+                const ctaButton = document.getElementById('cta-button');
+                if(ctaButton) ctaButton.click();
+                
+                // Select menu button if it exists
+                const menuBtns = document.querySelectorAll('.menu-btn');
+                let targetBtn = Array.from(menuBtns).find(b => b.dataset.menu === autoMenu);
+                if(targetBtn) {
+                    targetBtn.classList.add('selected');
+                    selectedMenu = autoMenu;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
