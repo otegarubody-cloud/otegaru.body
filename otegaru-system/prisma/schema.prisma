@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Reservation {
+  id        String   @id @default(cuid())
+  date      String   // e.g. "2026-05-27"
+  time      String   // e.g. "10:00"
+  name      String
+  phone     String
+  email     String?
+  menu      String
+  notes     String?
+  status    String   @default("confirmed") // "confirmed" or "cancel"
+  createdAt DateTime @default(now())
+}
+
+model Menu {
+  id          String   @id @default(cuid())
+  name        String
+  price       String
+  duration    String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SiteSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
+
+model CalendarDate {
+  id     String @id @default(cuid())
+  date   String // e.g. "2026-05-28"
+  type   String // "営業" or "休業"
+  note   String?
+}
