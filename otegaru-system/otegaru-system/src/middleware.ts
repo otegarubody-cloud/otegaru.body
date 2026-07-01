@@ -1,0 +1,31 @@
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+
+export function middleware(req: NextRequest) {
+  if (req.nextUrl.pathname.startsWith('/admin')) {
+    const basicAuth = req.headers.get('authorization')
+    const url = req.nextUrl
+    
+    const USERNAME = process.env.ADMIN_USER || 'admin'
+    const PASSWORD = process.env.ADMIN_PASSWORD || 'password'
+
+    if (basicAuth) {
+      const authValue = basicAuth.split(' ')[1]
+      const [user, pwd] = atob(authValue).split(':')
+
+      if (user === USERNAME && pwd === PASSWORD) {
+        return NextResponse.next()
+      }
+    }
+    return new NextResponse('Auth Required', {
+      status: 401,
+      headers: {
+        'WWW-Authenticate': 'Basic realm="Secure Area"'
+      }
+    })
+  }
+}
+
+export const config = {
+  matcher: ['/admin/:path*'],
+}
