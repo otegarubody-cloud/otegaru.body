@@ -5,6 +5,8 @@ import Footer from '../components/Footer'
 
 const prisma = new PrismaClient()
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   const menus = await prisma.menu.findMany()
   const settingsArray = await prisma.siteSetting.findMany()

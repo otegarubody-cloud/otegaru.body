@@ -42,6 +42,7 @@ export default function AdminClient({ initialReservations, initialMenus, initial
     instagram_url: 'https://www.instagram.com/otegaru_body/',
     line_url: 'https://lin.ee/ddFvc0y',
     hero_image_url: 'https://media.base44.com/images/public/6a02ab8f7236bafb450eb2d2/83a5b5573_generated_480a2807.png',
+    booking_range_weeks: '4',
   }
 
   const mappedSettings = { ...defaultSettings }

@@ -1,6 +1,8 @@
 'use server'
 
 import { PrismaClient } from '@prisma/client'
+import { revalidatePath } from 'next/cache'
+
 const prisma = new PrismaClient()
 
 export async function createReservation(data: {
@@ -121,8 +123,9 @@ export async function getReservationsByPhone(phone: string) {
 
 export async function createMenu(data: { name: string, price: string, duration: string, description: string }) {
   try {
-    const newMenu = await prisma.menu.create({ data })
-    return { success: true, menu: newMenu }
+    const menu = await prisma.menu.create({ data })
+    revalidatePath('/', 'layout')
+    return { success: true, menu }
   } catch (error) {
     console.error(error)
     return { success: false }
@@ -132,6 +135,7 @@ export async function createMenu(data: { name: string, price: string, duration: 
 export async function updateMenu(id: string, data: { name: string, price: string, duration: string, description: string }) {
   try {
     const updatedMenu = await prisma.menu.update({ where: { id }, data })
+    revalidatePath('/', 'layout')
     return { success: true, menu: updatedMenu }
   } catch (error) {
     console.error(error)
@@ -142,6 +146,7 @@ export async function updateMenu(id: string, data: { name: string, price: string
 export async function deleteMenu(id: string) {
   try {
     await prisma.menu.delete({ where: { id } })
+    revalidatePath('/', 'layout')
     return { success: true }
   } catch (error) {
     console.error(error)
@@ -158,6 +163,7 @@ export async function updateSiteSettings(settings: { key: string, value: string 
         create: { key: setting.key, value: setting.value }
       })
     }
+    revalidatePath('/', 'layout')
     return { success: true }
   } catch (error) {
     console.error(error)

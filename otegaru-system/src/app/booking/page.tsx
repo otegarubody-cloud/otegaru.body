@@ -17,6 +17,10 @@ export default async function BookingPage() {
   const reservations = await prisma.reservation.findMany({
     where: { status: 'confirmed' }
   })
+  
+  const settingsArray = await prisma.siteSetting.findMany()
+  const rangeSetting = settingsArray.find(s => s.key === 'booking_range_weeks')
+  const bookingRangeWeeks = rangeSetting ? parseInt(rangeSetting.value, 10) : 4
 
   // Format data for the client component
   const availableDates = calendarDates
@@ -37,6 +41,7 @@ export default async function BookingPage() {
           availableDates={availableDates}
           closedDates={closedDates}
           existingReservations={reservations}
+          bookingRangeWeeks={bookingRangeWeeks}
         />
       </Suspense>
 

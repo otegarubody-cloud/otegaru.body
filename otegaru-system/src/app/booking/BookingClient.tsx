@@ -18,6 +18,7 @@ export default function BookingClient({
   availableDates: string[]
   closedDates: string[]
   existingReservations: Reservation[]
+  bookingRangeWeeks: number
 }) {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -119,9 +120,9 @@ export default function BookingClient({
     const today = new Date()
     today.setHours(0,0,0,0)
 
-    // Limit to 3 weeks (21 days) from today
+    // Limit to N weeks from today (configured in admin)
     const maxDate = new Date(today)
-    maxDate.setDate(maxDate.getDate() + 21)
+    maxDate.setDate(maxDate.getDate() + (bookingRangeWeeks * 7))
 
     for (let i = 0; i < startingDay; i++) {
       days.push(<div key={`empty-${i}`} className="calendar-day empty"></div>)
