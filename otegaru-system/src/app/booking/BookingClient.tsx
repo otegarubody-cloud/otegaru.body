@@ -119,6 +119,10 @@ export default function BookingClient({
     const today = new Date()
     today.setHours(0,0,0,0)
 
+    // Limit to 3 weeks (21 days) from today
+    const maxDate = new Date(today)
+    maxDate.setDate(maxDate.getDate() + 21)
+
     for (let i = 0; i < startingDay; i++) {
       days.push(<div key={`empty-${i}`} className="calendar-day empty"></div>)
     }
@@ -138,7 +142,9 @@ export default function BookingClient({
       if (closedDates.includes(dateStr) || gasDates.some(d => d.date === dateStr && d.status === '休業')) {
         isAvailable = false
       }
-      if (isPast) {
+      
+      const isTooFar = date > maxDate
+      if (isPast || isTooFar) {
         isAvailable = false
       }
       
