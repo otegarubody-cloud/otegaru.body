@@ -70,7 +70,7 @@ export default function Footer() {
           <ul className="footer-page-links">
             <li><Link href="/">ホーム</Link></li>
             <li><Link href="/booking">ご予約</Link></li>
-            <li><Link href="/confirm">予約確認</Link></li>
+            <li><Link href="/confirm" className="footer-confirm-link">予約の確認・キャンセル</Link></li>
           </ul>
         </div>
       </div>
