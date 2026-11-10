@@ -16,7 +16,85 @@ export async function createReservation(data: {
   time: string
   notes?: string
 }) {
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycby-mLIQe6MH3xq4G5LBlLv1RZqAcMAAp5dquqdC1mFp-aCikcPDsOOWb70Q4PsV8D4X/exec'
+  const TIME_SLOTS = ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"]
+
+  const toMinutes = (time: string) => {
+    const [h, m] = time.split(':').map(Number)
+    return h * 60 + m
+  }
+  const toTimeString = (minutes: number) =>
+    `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`
+
   try {
+    // Server-side overlap validation (same approach as rescheduleReservation).
+    // Duration comes from the DB menu record matched by the submitted menu name;
+    // fall back to parsing the duration out of the menu name (reschedule's pattern).
+    const menuRecord = await prisma.menu.findFirst({ where: { name: data.menu } })
+    let duration = 30
+    const recordDur = menuRecord?.duration.match(/\d+/)
+    if (recordDur) {
+      duration = parseInt(recordDur[0], 10)
+    } else {
+      const nameDur = data.menu.match(/(\d+)\s*分/)
+      if (nameDur) duration = parseInt(nameDur[1], 10)
+    }
+    const start = toMinutes(data.time)
+    const end = start + duration
+
+    // Google Calendar data from GAS (best effort: on failure, DB check only)
+    let gasBusySlots: { date: string, start: string, end: string, title: string }[] = []
+    try {
+      const gasRes = await fetch(GAS_URL, { cache: 'no-store' })
+      const gasData = await gasRes.json()
+      if (gasData.status === 'success') {
+        gasBusySlots = gasData.busySlots || []
+      }
+    } catch (gasError) {
+      console.error('Failed to fetch GAS data for create validation', gasError)
+    }
+
+    // Blocked slots on the target date: confirmed reservations + GAS busy slots
+    // Reservations occupy treatment time + cleanup buffer; GAS busy slots keep their raw range (no buffer)
+    const reservationBlocked: string[] = []
+    const existing = await prisma.reservation.findMany({
+      where: { date: data.date, status: 'confirmed' }
+    })
+    existing.forEach(r => {
+      reservationBlocked.push(r.time)
+      const m = r.menu?.match(/(\d+)\s*分/)
+      const d = m ? parseInt(m[1], 10) : 30
+      const s = toMinutes(r.time)
+      for (let t = s + 30; t < s + d + BUFFER_MINUTES; t += 30) {
+        const slot = toTimeString(t)
+        if (TIME_SLOTS.includes(slot) && !reservationBlocked.includes(slot)) reservationBlocked.push(slot)
+      }
+    })
+    const gasBlocked: string[] = []
+    gasBusySlots.filter(b => b.date === data.date).forEach(b => {
+      const busyStart = toMinutes(b.start)
+      const busyEnd = toMinutes(b.end)
+      TIME_SLOTS.forEach(t => {
+        const slotStart = toMinutes(t)
+        if (slotStart < busyEnd && slotStart + 30 > busyStart && !gasBlocked.includes(t)) {
+          gasBlocked.push(t)
+        }
+      })
+    })
+
+    // Against other reservations, the candidate also occupies treatment + buffer
+    for (let t = start; t < end + BUFFER_MINUTES; t += 30) {
+      if (reservationBlocked.includes(toTimeString(t))) {
+        return { success: false, message: 'その時間帯はご予約が入っています。別の時間をお選びください。' }
+      }
+    }
+    // Against GAS busy slots, only the treatment time is compared (same semantics as reschedule)
+    for (let t = start; t < end; t += 30) {
+      if (gasBlocked.includes(toTimeString(t))) {
+        return { success: false, message: 'その時間帯はご予約が入っています。別の時間をお選びください。' }
+      }
+    }
+
     const reservation = await prisma.reservation.create({
       data: {
         name: data.name,
@@ -59,7 +137,7 @@ export async function createReservation(data: {
     return { success: true, id: reservation.id }
   } catch (error) {
     console.error(error)
-    return { success: false, message: 'Failed to create reservation' }
+    return { success: false, message: 'エラーが発生しました。もう一度お試しください。' }
   }
 }
 
