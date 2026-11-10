@@ -69,6 +69,7 @@ export default function Footer() {
           <div className="footer-links-title">ページ</div>
           <ul className="footer-page-links">
             <li><Link href="/">ホーム</Link></li>
+            <li><Link href="/menu">メニュー</Link></li>
             <li><Link href="/booking">ご予約</Link></li>
             <li><Link href="/confirm" className="footer-confirm-link">予約の確認・変更・キャンセル</Link></li>
           </ul>
