@@ -3,6 +3,7 @@
 import { PrismaClient } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { requireAdmin } from '../lib/admin-auth'
+import { BUFFER_MINUTES } from '../lib/booking'
 
 const prisma = new PrismaClient()
 
@@ -186,33 +187,42 @@ export async function rescheduleReservation(id: string, newDate: string, newTime
     }
 
     // Blocked slots on the target date: other confirmed reservations (excluding itself) + GAS busy slots
-    const blocked: string[] = []
+    // Reservations occupy treatment time + cleanup buffer; GAS busy slots keep their raw range (no buffer)
+    const reservationBlocked: string[] = []
     const others = await prisma.reservation.findMany({
       where: { date: newDate, status: 'confirmed', id: { not: id } }
     })
     others.forEach(r => {
-      blocked.push(r.time)
+      reservationBlocked.push(r.time)
       const m = r.menu?.match(/(\d+)\s*分/)
       const d = m ? parseInt(m[1], 10) : 30
       const s = toMinutes(r.time)
-      for (let t = s + 30; t < s + d; t += 30) {
+      for (let t = s + 30; t < s + d + BUFFER_MINUTES; t += 30) {
         const slot = toTimeString(t)
-        if (TIME_SLOTS.includes(slot) && !blocked.includes(slot)) blocked.push(slot)
+        if (TIME_SLOTS.includes(slot) && !reservationBlocked.includes(slot)) reservationBlocked.push(slot)
       }
     })
+    const gasBlocked: string[] = []
     gasBusySlots.filter(b => b.date === newDate).forEach(b => {
       const busyStart = toMinutes(b.start)
       const busyEnd = toMinutes(b.end)
       TIME_SLOTS.forEach(t => {
         const slotStart = toMinutes(t)
-        if (slotStart < busyEnd && slotStart + 30 > busyStart && !blocked.includes(t)) {
-          blocked.push(t)
+        if (slotStart < busyEnd && slotStart + 30 > busyStart && !gasBlocked.includes(t)) {
+          gasBlocked.push(t)
         }
       })
     })
 
+    // Against other reservations, the candidate also occupies treatment + buffer
+    for (let t = start; t < end + BUFFER_MINUTES; t += 30) {
+      if (reservationBlocked.includes(toTimeString(t))) {
+        return { success: false, message: 'その時間帯はすでに予約が入っています' }
+      }
+    }
+    // Against GAS busy slots, only the treatment time is compared (unchanged semantics)
     for (let t = start; t < end; t += 30) {
-      if (blocked.includes(toTimeString(t))) {
+      if (gasBlocked.includes(toTimeString(t))) {
         return { success: false, message: 'その時間帯はすでに予約が入っています' }
       }
     }
