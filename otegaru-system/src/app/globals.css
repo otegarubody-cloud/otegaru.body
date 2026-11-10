@@ -1191,6 +1191,16 @@ a.info-card:hover {
     box-shadow: 0 12px 28px rgba(6, 199, 85, 0.22);
 }
 
+/* LINE banner strip between the hero and the salon-info section */
+.home .line-banner {
+    background: var(--warm-bg);
+    padding: 44px 0 48px;
+}
+
+.home .line-banner .btn-line {
+    margin-bottom: 0;
+}
+
 .home .cards-grid {
     gap: 20px;
 }
@@ -1279,6 +1289,7 @@ a.info-card:hover {
     .home .hero-title { font-size: clamp(1.7rem, 8.6vw, 2rem); line-height: 1.3; margin-bottom: 16px; word-break: keep-all; }
     .home .btn-line { font-size: 0.92rem; padding: 16px 14px; }
     .home .btn-line .line-text { text-wrap: balance; }
+    .home .line-banner { padding: 36px 0 40px; }
     .home .hero-hook { font-size: 1.3rem; }
     .home .hero-subtitle { font-size: 0.95rem; margin-bottom: 28px; }
     .home .hero-buttons { flex-direction: column; gap: 12px; }
