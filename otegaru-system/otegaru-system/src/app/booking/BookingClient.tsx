@@ -65,22 +65,49 @@ export default function BookingClient({
 
   const timeSlots = ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"]
 
+  // 営業終了時刻（18:00）。開始時刻 + 所要時間がこれを超えるメニューは選べない
+  const CLOSE_MINUTES = 18 * 60
+
+  const toMinutes = (time: string) => {
+    const [h, m] = time.split(':').map(Number)
+    return h * 60 + m
+  }
+
+  const toTimeString = (minutes: number) =>
+    `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`
+
+  // メニューの所要時間を分で返す（duration の "90分" などから数値を取り出す）
+  const getDurationMinutes = (menu: Menu) => {
+    const match = menu.duration.match(/\d+/)
+    return match ? parseInt(match[0], 10) : 0
+  }
+
+  // その日時にそのメニューを開始できるか
+  // （終了が閉店時刻以内で、占有する30分枠がすべて空いていること）
+  const isMenuAvailableAt = (dateStr: string, startTime: string, menu: Menu) => {
+    const start = toMinutes(startTime)
+    const end = start + getDurationMinutes(menu)
+    if (end > CLOSE_MINUTES) return false
+    const blocked = getBlockedSlots(dateStr)
+    for (let t = start; t < end; t += 30) {
+      if (blocked.includes(toTimeString(t))) return false
+    }
+    return true
+  }
+
   const getBlockedSlots = (dateStr: string) => {
     const blocked: string[] = []
     const confirmedOnDate = existingReservations.filter(r => r.date === dateStr && r.status === 'confirmed')
-    
+
     confirmedOnDate.forEach(r => {
       blocked.push(r.time)
-      if (r.menu?.includes('60分') || r.menu?.includes('40分')) {
-        const [h, m] = r.time.split(':').map(Number)
-        let nextH = h
-        let nextM = m + 30
-        if (nextM >= 60) {
-          nextH += 1
-          nextM -= 60
-        }
-        const nextTime = `${nextH.toString().padStart(2, '0')}:${nextM === 0 ? '00' : '30'}`
-        blocked.push(nextTime)
+      // 既存予約が占有する枠は、メニュー名に含まれる所要時間ぶんすべてブロックする
+      const durMatch = r.menu?.match(/(\d+)\s*分/)
+      const dur = durMatch ? parseInt(durMatch[1], 10) : 30
+      const start = toMinutes(r.time)
+      for (let t = start + 30; t < start + dur; t += 30) {
+        const slot = toTimeString(t)
+        if (timeSlots.includes(slot) && !blocked.includes(slot)) blocked.push(slot)
       }
     })
 
@@ -237,7 +264,13 @@ export default function BookingClient({
              className += " disabled-step"
           }
 
-          const isDisabled = isBlocked || isPast
+          // メニューが先に選ばれている場合、そのメニューが入らない開始時刻は選べない
+          const isMenuConflict = selectedMenu ? !isMenuAvailableAt(selectedDate, time, selectedMenu) : false
+          if (isMenuConflict) {
+             className += " disabled-step"
+          }
+
+          const isDisabled = isBlocked || isPast || isMenuConflict
 
           return (
             <button
@@ -246,6 +279,10 @@ export default function BookingClient({
               disabled={isDisabled}
               onClick={() => {
                 setSelectedTime(time)
+                // 時刻変更で選択中メニューが入らなくなったら、選択を取り消す
+                if (selectedMenu && selectedDate && !isMenuAvailableAt(selectedDate, time, selectedMenu)) {
+                  setSelectedMenu(null)
+                }
                 if (step < 3) setStep(3)
               }}
             >
@@ -261,6 +298,10 @@ export default function BookingClient({
     e.preventDefault()
     if (!selectedDate || !selectedTime || !selectedMenu) {
       alert("日時とメニューを選択してください。")
+      return
+    }
+    if (!isMenuAvailableAt(selectedDate, selectedTime, selectedMenu)) {
+      alert("選択したメニューはその時間帯では予約できません。日時またはメニューを選び直してください。")
       return
     }
     setIsSubmitting(true)
@@ -316,22 +357,8 @@ export default function BookingClient({
                   else svgPath = '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path>'
 
                   let isMenuDisabled = false
-                  let requiresTwoSlots = m.name.includes('60分') || m.name.includes('40分') || m.duration.includes('60') || m.duration.includes('40')
-                  
-                  if (requiresTwoSlots && selectedTime && selectedDate) {
-                    const blocked = getBlockedSlots(selectedDate)
-                    const [h, min] = selectedTime.split(':').map(Number)
-                    let nextH = h
-                    let nextM = min + 30
-                    if (nextM >= 60) {
-                      nextH += 1
-                      nextM -= 60
-                    }
-                    const nextTime = `${nextH.toString().padStart(2, '0')}:${nextM === 0 ? '00' : '30'}`
-                    
-                    if (blocked.includes(nextTime) || !timeSlots.includes(nextTime)) {
-                      isMenuDisabled = true
-                    }
+                  if (selectedTime && selectedDate) {
+                    isMenuDisabled = !isMenuAvailableAt(selectedDate, selectedTime, m)
                   }
 
                   let btnClass = `select-btn menu-btn ${selectedMenu?.id === m.id ? 'selected' : ''}`
