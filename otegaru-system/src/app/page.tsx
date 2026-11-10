@@ -20,7 +20,7 @@ export default async function Home() {
     line_url: 'https://lin.ee/ddFvc0y',
     instagram_id: '@otegaru_body',
     instagram_url: 'https://www.instagram.com/otegaru_body/',
-    hero_image_url: 'https://media.base44.com/images/public/6a02ab8f7236bafb450eb2d2/83a5b5573_generated_480a2807.png',
+    hero_image_url: '/hero.webp',
   }
   settingsArray.forEach(s => {
     if (s.key in settings) settings[s.key] = s.value
@@ -39,7 +39,8 @@ export default async function Home() {
           <div className="hero-content">
             <div className="hero-badge">{settings.business_days} 営業</div>
             <h1 className="hero-title" dangerouslySetInnerHTML={{ __html: settings.catchphrase.replace(/\n/g, '<br>') }}></h1>
-            <p className="hero-subtitle">おてがる整体は、一人ひとりに寄り添った丁寧な施術で、 あなたの心と体の健康をサポートします。</p>
+            <p className="hero-hook" style={{ fontSize: '1.6rem', fontWeight: 700, color: 'white', marginBottom: '12px', letterSpacing: '0.5px' }}>全身もみほぐし ¥3,000〜</p>
+            <p className="hero-subtitle">人気の60分でも ¥3,500。首・肩から足先まで、まんべんなくほぐして整えます。</p>
             <div className="hero-buttons">
               <Link href="/booking" className="btn-primary-large" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
