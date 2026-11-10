@@ -32,13 +32,14 @@ export default async function Home() {
     <>
       <Header />
 
+      <div className="home">
       <section className="hero" style={{ position: 'relative' }}>
-        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#000' }}>
+        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#2A2622' }}>
           <picture>
             <source media="(max-width: 640px)" srcSet={mobileHero} />
             <img src={settings.hero_image_url} alt="Hero" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </picture>
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.5), rgba(0,0,0,0.3))' }}></div>
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(42,32,24,0.84), rgba(42,32,24,0.58), rgba(42,32,24,0.26))' }}></div>
         </div>
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <div className="hero-content">
@@ -59,9 +60,9 @@ export default async function Home() {
 
       <section className="menu-section" id="services">
         <div className="container">
-          <div className="text-center" style={{ marginBottom: '40px' }}>
+          <div className="text-center section-heading">
             <h2 className="section-title">施術メニュー</h2>
-            <p className="subtitle" style={{ marginBottom: 0 }}>お悩みに合わせてお選びいただけます</p>
+            <p className="subtitle">お悩みに合わせてお選びいただけます</p>
           </div>
           <div className="menu-grid">
             {menus.map((m, idx) => {
@@ -73,14 +74,12 @@ export default async function Home() {
 
               return (
                 <div className="menu-card" key={m.id}>
-                  <div className="menu-icon-wrapper" style={{ marginBottom: '16px' }}>
+                  <div className="menu-icon-wrapper">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" dangerouslySetInnerHTML={{ __html: svgPath }}></svg>
                   </div>
-                  <div className="menu-header">
-                    <h3>{m.name} <span style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--text-muted)' }}>({m.duration})</span></h3>
-                    <span className="menu-price">¥{parseInt(m.price).toLocaleString()}</span>
-                  </div>
-                  <p>{m.description}</p>
+                  <h3>{m.name}</h3>
+                  <p className="menu-meta">{m.duration} <span aria-hidden="true">•</span> ¥{parseInt(m.price).toLocaleString()}</p>
+                  <p className="menu-description">{m.description}</p>
                   <Link href={`/booking?autoMenu=${encodeURIComponent(m.name)}`} className="menu-book-link">予約する &rarr;</Link>
                 </div>
               )
@@ -91,7 +90,7 @@ export default async function Home() {
 
       <section className="info-section">
         <div className="container">
-          <div className="text-center">
+          <div className="text-center section-heading">
             <h2 className="section-title">サロン情報</h2>
             <p className="subtitle">お気軽にお越しください</p>
           </div>
@@ -134,16 +133,17 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="cta-section" style={{ paddingBottom: '100px' }}>
+      <section className="cta-section">
         <div className="container text-center">
           <h2 className="section-title">お気軽にご予約ください</h2>
-          <p className="subtitle" style={{ marginBottom: '24px' }}>オンラインで24時間いつでも予約が可能です。<br/>あなたのお越しをお待ちしております。</p>
+          <p className="subtitle">オンラインで24時間いつでも予約が可能です。<br/>あなたのお越しをお待ちしております。</p>
           <Link href="/booking" className="btn-primary-large" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
             今すぐ予約する
           </Link>
         </div>
       </section>
+      </div>
 
       <Footer />
     </>
