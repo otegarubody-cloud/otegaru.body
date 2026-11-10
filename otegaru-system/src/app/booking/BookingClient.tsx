@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createReservation } from '../actions'
+import MenuGroups from '../MenuGroups'
 
 type Menu = { id: string, name: string, price: string, duration: string, description: string }
 type Reservation = { date: string, time: string, status: string, menu?: string }
@@ -348,39 +349,26 @@ export default function BookingClient({
           {step >= 3 && selectedTime && (
             <div className={`step-container ${step >= 3 ? 'visible-step' : 'hidden-step'}`} id="step-3">
               <h3>③ メニューを選択</h3>
-              <div className="selection-grid booking-menu-grid" id="booking-menu-container">
-                {menus.map((m, idx) => {
-                  let svgPath = ""
-                  if (idx === 0) svgPath = '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>'
-                  else if (idx === 1) svgPath = '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>'
-                  else if (idx === 2) svgPath = '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2-1 4-2 7-2s5 1 7 2a1 1 0 0 1 1 1z"></path>'
-                  else svgPath = '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path>'
-
-                  let isMenuDisabled = false
-                  if (selectedTime && selectedDate) {
-                    isMenuDisabled = !isMenuAvailableAt(selectedDate, selectedTime, m)
-                  }
-
-                  let btnClass = `select-btn menu-btn ${selectedMenu?.id === m.id ? 'selected' : ''}`
-                  if (isMenuDisabled) btnClass += ' disabled-step'
-
-                  return (
-                    <button 
-                      key={m.id}
-                      className={btnClass}
-                      disabled={isMenuDisabled}
-                      onClick={() => {
-                        setSelectedMenu(m)
-                        if (step < 4) setStep(4)
-                      }}
-                    >
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" dangerouslySetInnerHTML={{ __html: svgPath }}></svg>
-                      <strong>{m.name}</strong>
-                      <span style={{ fontSize: '0.8rem' }}>¥{parseInt(m.price).toLocaleString()} ({m.duration})</span>
-                      {isMenuDisabled && <span style={{ fontSize: '0.7rem', color: '#ef4444', marginTop: '4px', display: 'block' }}>この時間帯は予約枠が足りません</span>}
-                    </button>
-                  )
-                })}
+              <div id="booking-menu-container">
+                <MenuGroups
+                  menus={menus}
+                  mode="booking"
+                  selectedMenuId={selectedMenu?.id ?? null}
+                  onSelectMenu={(m) => {
+                    const found = menus.find(x => x.id === m.id)
+                    if (found) {
+                      setSelectedMenu(found)
+                      if (step < 4) setStep(4)
+                    }
+                  }}
+                  isMenuDisabled={(m) => {
+                    if (selectedTime && selectedDate) {
+                      const found = menus.find(x => x.id === m.id)
+                      return found ? !isMenuAvailableAt(selectedDate, selectedTime, found) : false
+                    }
+                    return false
+                  }}
+                />
               </div>
             </div>
           )}
