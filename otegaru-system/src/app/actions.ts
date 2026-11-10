@@ -2,6 +2,7 @@
 
 import { PrismaClient } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
+import { requireAdmin } from '../lib/admin-auth'
 
 const prisma = new PrismaClient()
 
@@ -122,6 +123,7 @@ export async function getReservationsByPhone(phone: string) {
 }
 
 export async function createMenu(data: { name: string, price: string, duration: string, description: string }) {
+  if (!(await requireAdmin())) return { success: false }
   try {
     const menu = await prisma.menu.create({ data })
     revalidatePath('/', 'layout')
@@ -133,6 +135,7 @@ export async function createMenu(data: { name: string, price: string, duration: 
 }
 
 export async function updateMenu(id: string, data: { name: string, price: string, duration: string, description: string }) {
+  if (!(await requireAdmin())) return { success: false }
   try {
     const updatedMenu = await prisma.menu.update({ where: { id }, data })
     revalidatePath('/', 'layout')
@@ -144,6 +147,7 @@ export async function updateMenu(id: string, data: { name: string, price: string
 }
 
 export async function deleteMenu(id: string) {
+  if (!(await requireAdmin())) return { success: false }
   try {
     await prisma.menu.delete({ where: { id } })
     revalidatePath('/', 'layout')
@@ -155,6 +159,7 @@ export async function deleteMenu(id: string) {
 }
 
 export async function updateSiteSettings(settings: { key: string, value: string }[]) {
+  if (!(await requireAdmin())) return { success: false }
   try {
     for (const setting of settings) {
       await prisma.siteSetting.upsert({
@@ -172,6 +177,7 @@ export async function updateSiteSettings(settings: { key: string, value: string 
 }
 
 export async function updateReservationDetails(id: string, data: { name: string, phone: string, email: string, menu: string, date: string, time: string, notes: string }) {
+  if (!(await requireAdmin())) return { success: false, message: 'Unauthorized' }
   try {
     const oldReservation = await prisma.reservation.findUnique({ where: { id } })
     if (!oldReservation) return { success: false, message: 'Not found' }
