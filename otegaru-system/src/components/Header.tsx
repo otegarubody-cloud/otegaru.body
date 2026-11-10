@@ -29,6 +29,7 @@ export default function Header() {
         </Link>
         <nav className="nav">
           <Link href="/" style={pathname === '/' ? { color: 'var(--primary)' } : {}}>ホーム</Link>
+          <Link href="/menu" style={pathname === '/menu' ? { color: 'var(--primary)' } : {}}>メニュー</Link>
           <Link href="/booking" style={pathname === '/booking' ? { color: 'var(--primary)' } : {}}>ご予約</Link>
           <Link href="/confirm">予約の確認・変更・キャンセル</Link>
           <Link href="/booking" className="btn-primary-small">
