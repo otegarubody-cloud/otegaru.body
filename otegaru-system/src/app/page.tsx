@@ -66,7 +66,7 @@ export default async function Home() {
               </Link>
               <Link href="#services" className="btn-ghost-hero">メニューを見る</Link>
             </div>
-            <Link href="/confirm" className="hero-confirm-link">ご予約の確認・キャンセルはこちら →</Link>
+            <Link href="/confirm" className="hero-confirm-link">ご予約の確認・変更・キャンセルはこちら →</Link>
           </div>
         </div>
       </section>
