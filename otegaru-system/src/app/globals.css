@@ -893,6 +893,27 @@ a.info-card:hover {
     gap: 8px;
 }
 
+.footer .footer-page-links a {
+    color: #EDE6DD;
+    font-weight: 600;
+    display: inline-block;
+    padding: 4px 0;
+}
+
+.footer .footer-page-links a.footer-confirm-link {
+    background: var(--primary);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 999px;
+    margin-top: 8px;
+    box-shadow: 0 8px 20px rgba(234, 88, 12, 0.35);
+}
+
+.footer .footer-page-links a.footer-confirm-link:hover {
+    background: var(--primary-hover);
+    color: var(--white);
+}
+
 @media (max-width: 640px) {
     .footer { padding: 56px 0 32px; }
     .footer-grid { gap: 36px; }
@@ -1214,6 +1235,27 @@ a.info-card:hover {
     min-width: 300px;
 }
 
+.home .hero-confirm-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: var(--white);
+    font-size: 0.95rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 999px;
+    text-decoration: none;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.home .hero-confirm-link:hover {
+    background: rgba(255, 255, 255, 0.26);
+}
+
 @keyframes homeFadeUp {
     from { opacity: 0; transform: translateY(18px); }
     to { opacity: 1; transform: translateY(0); }
@@ -1249,6 +1291,8 @@ a.info-card:hover {
     .home .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .home .info-card { padding: 20px 10px; }
     .home .info-card p { font-size: 0.8rem; line-height: 1.6; overflow-wrap: anywhere; }
+    .home .cards-grid .info-card p { font-size: 0.78rem; letter-spacing: 0; text-wrap: balance; }
+    .home .hero-confirm-link { display: flex; justify-content: center; }
     .home .menu-card { padding: 24px 22px; }
     .home .menu-card h3 { min-height: 0; }
     .home .cta-section .btn-primary-large { min-width: 0; width: 100%; max-width: 360px; }
