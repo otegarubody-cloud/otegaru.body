@@ -170,6 +170,14 @@ body {
     line-height: 1.2;
 }
 
+.hero-hook {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
 .hero-subtitle {
     font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.9);
@@ -886,3 +894,14 @@ a.info-card:hover {
     cursor: pointer;
 }
 .btn-destructive:hover { background: #b91c1c; }
+
+/* Mobile hero adjustments */
+@media (max-width: 640px) {
+    .hero { padding: 56px 0 64px; min-height: 0; }
+    .hero-badge { font-size: 0.8rem; margin-bottom: 16px; }
+    .hero-title { font-size: 2rem; line-height: 1.35; margin-bottom: 16px; }
+    .hero-hook { font-size: 1.3rem; }
+    .hero-subtitle { font-size: 0.95rem; margin-bottom: 28px; }
+    .hero-buttons { flex-direction: column; gap: 12px; }
+    .hero-buttons .btn-primary-large, .hero-buttons .btn-ghost-hero { width: 100%; padding: 14px 24px; font-size: 1rem; }
+}
