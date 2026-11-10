@@ -338,7 +338,7 @@ export default function BookingClient({
     if (res.success) {
       router.push(`/complete?id=${res.id}`)
     } else {
-      alert("エラーが発生しました。もう一度お試しください。")
+      alert(res.message || "エラーが発生しました。もう一度お試しください。")
     }
   }
 
