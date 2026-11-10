@@ -1242,7 +1242,10 @@ a.info-card:hover {
     .home .cta-section { padding: 64px 0 72px; }
     .home .section-title { font-size: 1.75rem; }
     .home .section-heading { margin-bottom: 40px; }
-    .home .menu-grid, .home .cards-grid { grid-template-columns: 1fr; }
+    .home .menu-grid { grid-template-columns: 1fr; }
+    .home .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .home .info-card { padding: 20px 10px; }
+    .home .info-card p { font-size: 0.8rem; line-height: 1.6; overflow-wrap: anywhere; }
     .home .menu-card { padding: 24px 22px; }
     .home .menu-card h3 { min-height: 0; }
     .home .cta-section .btn-primary-large { min-width: 0; width: 100%; max-width: 360px; }
