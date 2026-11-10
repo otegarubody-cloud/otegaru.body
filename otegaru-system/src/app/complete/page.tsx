@@ -26,7 +26,7 @@ export default async function CompletePage({ searchParams }: { searchParams: Pro
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect x="3" y="8" width="18" height="14" rx="2"></rect><path d="M3 10h18"></path><path d="m9 16 2 2 4-4"></path></svg>
           </div>
           
-          <h2 className="page-title" style={{ fontSize: '1.5rem', marginBottom: '12px' }}>ご予約ありがとうございます</h2>
+          <h2 className="page-title" style={{ fontSize: '1.5rem', marginBottom: '12px' }}><span className="sp-block">ご予約</span><span className="sp-block">ありがとうございます</span></h2>
           
           <div style={{ background: 'white', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 1px 2px rgba(0,0,0,0.05)', textAlign: 'left', marginBottom: '24px' }}>
             <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.875rem' }}>
@@ -50,7 +50,7 @@ export default async function CompletePage({ searchParams }: { searchParams: Pro
           </div>
 
           <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '16px' }}>
-            当日はお時間に余裕をもってお越しください。
+            <span className="sp-block">当日はお時間に余裕をもって</span><span className="sp-block">お越しください。</span>
           </p>
 
           <Link href="https://lin.ee/ddFvc0y" target="_blank" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', backgroundColor: '#06C755', color: 'white', borderRadius: '8px', padding: '12px 16px', fontWeight: 500, textDecoration: 'none', marginBottom: '24px', fontSize: '0.875rem' }}>
