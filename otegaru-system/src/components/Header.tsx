@@ -16,7 +16,7 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  if (pathname.startsWith('/admin')) {
+  if (pathname.startsWith('/kanri-5279')) {
     return null // Admin uses its own layout
   }
 
