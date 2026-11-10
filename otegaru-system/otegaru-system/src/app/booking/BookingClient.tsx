@@ -12,7 +12,8 @@ export default function BookingClient({
   menus,
   availableDates,
   closedDates,
-  existingReservations
+  existingReservations,
+  bookingRangeWeeks
 }: {
   menus: Menu[]
   availableDates: string[]
