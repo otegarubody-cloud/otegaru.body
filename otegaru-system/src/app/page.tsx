@@ -8,7 +8,6 @@ const prisma = new PrismaClient()
 export const dynamic = 'force-dynamic'
 
 export default async function Home() {
-  const menus = await prisma.menu.findMany()
   const settingsArray = await prisma.siteSetting.findMany()
   
   const settings: Record<string, string> = {
@@ -28,16 +27,6 @@ export default async function Home() {
 
   const mobileHero = settings.hero_image_url.endsWith('/hero.webp') ? '/hero-mobile.webp' : settings.hero_image_url
 
-  const durationOf = (m: { duration: string }) => {
-    const n = parseInt((m.duration || '').replace(/[^0-9]/g, ''), 10)
-    return Number.isNaN(n) ? 999 : n
-  }
-  const sortedMenus = [...menus].sort((a, b) => {
-    const aFull = a.name.includes('全身') ? 0 : 1
-    const bFull = b.name.includes('全身') ? 0 : 1
-    if (aFull !== bFull) return aFull - bFull
-    return aFull === 0 ? durationOf(a) - durationOf(b) : 0
-  })
   const businessDaysDisplay = settings.business_days.replace(/・/g, '・\u200B')
 
   return (
@@ -64,39 +53,9 @@ export default async function Home() {
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                 予約する
               </Link>
-              <Link href="#services" className="btn-ghost-hero">メニューを見る</Link>
+              <Link href="/menu" className="btn-ghost-hero">メニューを見る</Link>
             </div>
             <Link href="/confirm" className="hero-confirm-link">ご予約の確認・変更・キャンセルはこちら →</Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="menu-section" id="services">
-        <div className="container">
-          <div className="text-center section-heading">
-            <h2 className="section-title">施術メニュー</h2>
-            <p className="subtitle">お悩みに合わせてお選びいただけます</p>
-          </div>
-          <div className="menu-grid">
-            {sortedMenus.map((m, idx) => {
-              let svgPath = ""
-              if (idx === 0) svgPath = '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>'
-              else if (idx === 1) svgPath = '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>'
-              else if (idx === 2) svgPath = '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2-1 4-2 7-2s5 1 7 2a1 1 0 0 1 1 1z"></path>'
-              else svgPath = '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path>'
-
-              return (
-                <div className="menu-card" key={m.id}>
-                  <div className="menu-icon-wrapper">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" dangerouslySetInnerHTML={{ __html: svgPath }}></svg>
-                  </div>
-                  <h3>{m.name}</h3>
-                  <p className="menu-meta">{m.duration} <span aria-hidden="true">•</span> ¥{parseInt(m.price).toLocaleString()}</p>
-                  <p className="menu-description">{m.description}</p>
-                  <Link href={`/booking?autoMenu=${encodeURIComponent(m.name)}`} className="menu-book-link">予約する &rarr;</Link>
-                </div>
-              )
-            })}
           </div>
         </div>
       </section>
