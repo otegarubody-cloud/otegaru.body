@@ -1297,3 +1297,285 @@ a.info-card:hover {
     .home .menu-card h3 { min-height: 0; }
     .home .cta-section .btn-primary-large { min-width: 0; width: 100%; max-width: 360px; }
 }
+
+/* Menu groups — grouped price chips (shared by /menu page and booking flow) */
+.menu-page .menu-section {
+    padding: 72px 0 96px;
+}
+
+.mg-wrap {
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+.mg-group {
+    background: #FFFDF9;
+    border: 1px solid #E3D5C6;
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(84, 58, 38, 0.05);
+    padding: 30px 30px 32px;
+    margin-bottom: 28px;
+}
+
+.mg-group:last-child {
+    margin-bottom: 0;
+}
+
+.mg-group-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.mg-group-icon {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--warm-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mg-group-divider {
+    width: 1px;
+    align-self: stretch;
+    background: #E3D5C6;
+}
+
+.mg-group-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--warm-text);
+}
+
+.mg-group-sub {
+    color: var(--warm-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-top: 4px;
+}
+
+.mg-chips {
+    display: grid;
+    gap: 14px;
+}
+
+.mg-chips-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.mg-chips-2 {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 440px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.mg-chip {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background: var(--white);
+    border: 1.5px solid #E0D2BF;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+
+.mg-chip:hover:not(:disabled) {
+    border-color: var(--primary);
+}
+
+.mg-chip-top {
+    background: #5C4033;
+    color: var(--white);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-align: center;
+    padding: 8px 4px;
+    transition: background 0.2s;
+}
+
+.mg-chip-price {
+    color: var(--primary);
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 10px 4px 12px;
+}
+
+.mg-chip.open {
+    border-color: var(--primary);
+    box-shadow: 0 10px 24px rgba(234, 88, 12, 0.16);
+}
+
+.mg-chip.open .mg-chip-top,
+.mg-chip.selected .mg-chip-top {
+    background: var(--primary);
+}
+
+.mg-chip:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.mg-chip:disabled .mg-chip-top {
+    background: #A79C90;
+}
+
+.mg-chip:disabled .mg-chip-price {
+    color: var(--warm-muted);
+}
+
+.mg-detail {
+    margin-top: 20px;
+    border-top: 1px dashed #E3D5C6;
+    padding-top: 20px;
+    animation: mgFadeIn 0.25s ease-out both;
+}
+
+.mg-detail-item + .mg-detail-item {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #F1E8DD;
+}
+
+.mg-detail-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--warm-text);
+}
+
+.mg-detail-meta {
+    display: block;
+    color: var(--primary);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin: 6px 0 8px;
+}
+
+.mg-detail-desc {
+    color: var(--warm-muted);
+    font-size: 0.92rem;
+    line-height: 1.75;
+    margin-bottom: 16px;
+}
+
+.mg-book-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary);
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 12px 34px;
+    border-radius: 10px;
+    box-shadow: 0 10px 22px rgba(234, 88, 12, 0.25);
+    transition: background 0.2s;
+}
+
+.mg-book-btn:hover {
+    background: var(--primary-hover);
+}
+
+.mg-selected-tag {
+    display: inline-block;
+    vertical-align: middle;
+    background: var(--primary);
+    color: var(--white);
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 4px 9px;
+    border-radius: 999px;
+    margin-left: 10px;
+}
+
+.mg-unavailable {
+    display: block;
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 8px;
+}
+
+.mg-course-row {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--white);
+    border: 1.5px solid #EDE4DA;
+    border-radius: 12px;
+    padding: 16px 18px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.mg-course-row + .mg-course-row {
+    margin-top: 12px;
+}
+
+.mg-course-row:hover:not(:disabled) {
+    border-color: var(--primary);
+}
+
+.mg-course-row.selected {
+    border-color: var(--primary);
+    background: #FFF7F0;
+    box-shadow: 0 8px 20px rgba(234, 88, 12, 0.12);
+}
+
+.mg-course-row:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.mg-course-row-head {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.mg-course-row-desc {
+    display: block;
+    color: var(--warm-muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+@keyframes mgFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mg-detail { animation: none; }
+}
+
+@media (max-width: 640px) {
+    .menu-page .menu-section { padding: 56px 0 72px; }
+    .mg-group { padding: 20px 16px 22px; border-radius: 18px; margin-bottom: 20px; }
+    .mg-group-head { gap: 12px; margin-bottom: 18px; }
+    .mg-group-icon { width: 52px; height: 52px; }
+    .mg-group-icon svg { width: 26px; height: 26px; }
+    .mg-group-title { font-size: 1.12rem; }
+    .mg-group-sub { font-size: 0.8rem; }
+    .mg-chips { gap: 10px; }
+    .mg-chips-4 { gap: 8px; }
+    .mg-chip-top { font-size: 0.85rem; padding: 6px 2px; }
+    .mg-chip-price { font-size: 0.88rem; padding: 8px 2px 9px; }
+    .mg-detail { margin-top: 16px; padding-top: 16px; }
+    .mg-book-btn { width: 100%; }
+    .mg-course-row { padding: 14px; }
+}
