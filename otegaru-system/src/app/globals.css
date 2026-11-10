@@ -1345,11 +1345,17 @@ a.info-card:hover {
     background: #E3D5C6;
 }
 
+.mg-group-head-text {
+    flex: 1;
+    min-width: 0;
+}
+
 .mg-group-title {
     font-size: 1.35rem;
     font-weight: 700;
     line-height: 1.4;
     color: var(--warm-text);
+    white-space: nowrap;
 }
 
 .mg-group-sub {
@@ -1452,6 +1458,8 @@ a.info-card:hover {
     font-weight: 700;
     line-height: 1.5;
     color: var(--warm-text);
+    word-break: keep-all;
+    text-wrap: balance;
 }
 
 .mg-detail-meta {
@@ -1569,7 +1577,7 @@ a.info-card:hover {
     .mg-group-head { gap: 12px; margin-bottom: 18px; }
     .mg-group-icon { width: 52px; height: 52px; }
     .mg-group-icon svg { width: 26px; height: 26px; }
-    .mg-group-title { font-size: 1.12rem; }
+    .mg-group-title { font-size: 1.02rem; letter-spacing: 0; }
     .mg-group-sub { font-size: 0.8rem; }
     .mg-chips { gap: 10px; }
     .mg-chips-4 { gap: 8px; }
@@ -1578,4 +1586,11 @@ a.info-card:hover {
     .mg-detail { margin-top: 16px; padding-top: 16px; }
     .mg-book-btn { width: 100%; }
     .mg-course-row { padding: 14px; }
+}
+
+/* Phrases that must break only at a chosen point on narrow screens */
+.sp-block { display: inline; }
+
+@media (max-width: 640px) {
+    .sp-block { display: block; }
 }
