@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createReservation } from '../actions'
+import { BUFFER_MINUTES } from '../../lib/booking'
 import MenuGroups from '../MenuGroups'
 
 type Menu = { id: string, name: string, price: string, duration: string, description: string }
@@ -84,53 +85,75 @@ export default function BookingClient({
   }
 
   // その日時にそのメニューを開始できるか
-  // （終了が閉店時刻以内で、占有する30分枠がすべて空いていること）
+  // （施術終了が閉店時刻以内で、既存予約とは「施術+片付けバッファ」の占有が重ならず、
+  //   Googleカレンダーの予定とは施術時間が重ならないこと）
   const isMenuAvailableAt = (dateStr: string, startTime: string, menu: Menu) => {
     const start = toMinutes(startTime)
     const end = start + getDurationMinutes(menu)
     if (end > CLOSE_MINUTES) return false
-    const blocked = getBlockedSlots(dateStr)
+    // 既存予約との重なりは、候補側も施術+バッファの占有区間で判定する
+    // （例: 60分コースは施術終了の15分後まで枠を占有する）
+    const reservationBlocked = getReservationBlockedSlots(dateStr)
+    for (let t = start; t < end + BUFFER_MINUTES; t += 30) {
+      if (reservationBlocked.includes(toTimeString(t))) return false
+    }
+    // Googleカレンダーの予定との判定は従来どおり（施術時間のみ、バッファなし）
+    const gasBlocked = getGasBlockedSlots(dateStr)
     for (let t = start; t < end; t += 30) {
-      if (blocked.includes(toTimeString(t))) return false
+      if (gasBlocked.includes(toTimeString(t))) return false
     }
     return true
   }
 
-  const getBlockedSlots = (dateStr: string) => {
+  // 既存予約が占有する30分枠（所要時間 + 片付けバッファぶんまで）
+  const getReservationBlockedSlots = (dateStr: string) => {
     const blocked: string[] = []
     const confirmedOnDate = existingReservations.filter(r => r.date === dateStr && r.status === 'confirmed')
 
     confirmedOnDate.forEach(r => {
       blocked.push(r.time)
-      // 既存予約が占有する枠は、メニュー名に含まれる所要時間ぶんすべてブロックする
+      // 既存予約が占有する枠は、メニュー名に含まれる所要時間 + バッファぶんすべてブロックする
       const durMatch = r.menu?.match(/(\d+)\s*分/)
       const dur = durMatch ? parseInt(durMatch[1], 10) : 30
       const start = toMinutes(r.time)
-      for (let t = start + 30; t < start + dur; t += 30) {
+      for (let t = start + 30; t < start + dur + BUFFER_MINUTES; t += 30) {
         const slot = toTimeString(t)
         if (timeSlots.includes(slot) && !blocked.includes(slot)) blocked.push(slot)
       }
     })
 
-    // Also block slots based on Google Calendar busy slots
+    return blocked
+  }
+
+  // Googleカレンダーの予定が占有する30分枠（従来どおり、バッファは付けない）
+  const getGasBlockedSlots = (dateStr: string) => {
+    const blocked: string[] = []
     const dayBusy = gasBusySlotsState.filter(b => b.date === dateStr)
     dayBusy.forEach(b => {
       const [startH, startM] = b.start.split(':').map(Number)
       const [endH, endM] = b.end.split(':').map(Number)
       const startMins = startH * 60 + startM
       const endMins = endH * 60 + endM
-      
+
       timeSlots.forEach(t => {
         const [th, tm] = t.split(':').map(Number)
         const slotStartMins = th * 60 + tm
         const slotEndMins = slotStartMins + 30
-        
+
         if (slotStartMins < endMins && slotEndMins > startMins) {
           if (!blocked.includes(t)) blocked.push(t)
         }
       })
     })
 
+    return blocked
+  }
+
+  const getBlockedSlots = (dateStr: string) => {
+    const blocked = getReservationBlockedSlots(dateStr)
+    getGasBlockedSlots(dateStr).forEach(slot => {
+      if (!blocked.includes(slot)) blocked.push(slot)
+    })
     return blocked
   }
 
