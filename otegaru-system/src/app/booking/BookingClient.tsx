@@ -157,6 +157,24 @@ export default function BookingClient({
     return blocked
   }
 
+  // ④（お客様情報）の表示はクリックではなく選択状態に追随させる。
+  // autoMenu でメニューが事前選択されている場合、従来はチップのクリック
+  // （onSelectMenu）でしか step が 4 に進まず、日時を選んでもフォームが
+  // 出てこなかった。日付・時間・選択中メニューが揃い、そのメニューが
+  // その枠で予約可能なら、再タップなしで step を 4 まで進める。
+  // （step は前進のみ。選択が外れた場合の後退は従来どおり描画条件と
+  //   時刻変更時の選択取り消しに任せる）
+  useEffect(() => {
+    if (
+      selectedDate &&
+      selectedTime &&
+      selectedMenu &&
+      isMenuAvailableAt(selectedDate, selectedTime, selectedMenu)
+    ) {
+      setStep(prev => (prev < 4 ? 4 : prev))
+    }
+  }, [selectedDate, selectedTime, selectedMenu, gasBusySlotsState, existingReservations])
+
   const renderCalendar = () => {
     const year = currentMonth.getFullYear()
     const month = currentMonth.getMonth()
