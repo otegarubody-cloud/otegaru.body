@@ -26,20 +26,25 @@ export default async function Home() {
     if (s.key in settings) settings[s.key] = s.value
   })
 
+  const mobileHero = settings.hero_image_url.endsWith('/hero.webp') ? '/hero-mobile.webp' : settings.hero_image_url
+
   return (
     <>
       <Header />
 
       <section className="hero" style={{ position: 'relative' }}>
         <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#000' }}>
-          <img src={settings.hero_image_url} alt="Hero" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <picture>
+            <source media="(max-width: 640px)" srcSet={mobileHero} />
+            <img src={settings.hero_image_url} alt="Hero" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </picture>
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.5), rgba(0,0,0,0.3))' }}></div>
         </div>
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <div className="hero-content">
             <div className="hero-badge">{settings.business_days} 営業</div>
             <h1 className="hero-title" dangerouslySetInnerHTML={{ __html: settings.catchphrase.replace(/\n/g, '<br>') }}></h1>
-            <p className="hero-hook" style={{ fontSize: '1.6rem', fontWeight: 700, color: 'white', marginBottom: '12px', letterSpacing: '0.5px' }}>全身もみほぐし ¥3,000〜</p>
+            <p className="hero-hook">全身もみほぐし ¥3,000〜</p>
             <p className="hero-subtitle">人気の60分でも ¥3,500。首・肩から足先まで、まんべんなくほぐして整えます。</p>
             <div className="hero-buttons">
               <Link href="/booking" className="btn-primary-large" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
