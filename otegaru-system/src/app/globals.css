@@ -1594,3 +1594,13 @@ a.info-card:hover {
 @media (max-width: 640px) {
     .sp-block { display: block; }
 }
+
+/* Booking-complete page: .container's 5% side padding is relative to the
+   full-width section, so on wide screens it eats into the 500px column and
+   leaves the heading too little room. Pin the padding so the content width
+   is a stable 460px, and keep the heading on one line on desktop. */
+.container.complete-container { padding: 0 20px; }
+
+@media (min-width: 641px) {
+    .complete-title { white-space: nowrap; }
+}
