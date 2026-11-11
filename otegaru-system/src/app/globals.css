@@ -416,7 +416,7 @@ a.info-card:hover {
     color: var(--white);
     border: none;
     padding: 16px 32px;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
@@ -437,6 +437,11 @@ a.info-card:hover {
 .step-container {
     margin-bottom: 40px;
     transition: opacity 0.3s;
+    background: var(--white);
+    border: 1px solid #E7DED3;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 12px 32px rgba(84, 58, 38, 0.05);
 }
 
 .disabled-step {
@@ -465,7 +470,7 @@ a.info-card:hover {
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 20px;
-    color: var(--text-dark);
+    color: var(--warm-text);
 }
 
 .selection-grid {
@@ -476,12 +481,12 @@ a.info-card:hover {
 /* Calendar UI */
 .calendar-container {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 12px 32px rgba(84, 58, 38, 0.06);
     max-width: 400px;
     margin: 0 auto;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #E7DED3;
 }
 
 .calendar-header {
@@ -495,7 +500,7 @@ a.info-card:hover {
     margin: 0;
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--text-dark);
+    color: var(--warm-text);
 }
 
 .calendar-header button {
@@ -510,7 +515,7 @@ a.info-card:hover {
 }
 
 .calendar-header button:hover {
-    background: #fff7ed;
+    background: var(--warm-pale);
 }
 
 .calendar-days-header {
@@ -518,7 +523,7 @@ a.info-card:hover {
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
     font-weight: 700;
-    color: var(--text-muted);
+    color: var(--warm-muted);
     margin-bottom: 12px;
     font-size: 0.85rem;
 }
@@ -545,7 +550,7 @@ a.info-card:hover {
     transition: all 0.2s;
     background: transparent;
     border: 2px solid transparent;
-    color: var(--text-dark);
+    color: var(--warm-text);
 }
 
 .calendar-day.empty {
@@ -554,16 +559,16 @@ a.info-card:hover {
 }
 
 .calendar-day.disabled {
-    color: #cbd5e1;
+    color: #C9BBA6;
     cursor: not-allowed;
-    background: #f8fafc;
-    border-color: #f1f5f9;
+    background: #F6F1EA;
+    border-color: #EFE7DB;
 }
 
 .calendar-day.available {
-    background: #fff7ed;
+    background: var(--warm-pale);
     color: var(--primary);
-    border-color: #ffedd5;
+    border-color: #F2DCC4;
 }
 
 .calendar-day.available:hover {
@@ -582,12 +587,12 @@ a.info-card:hover {
 
 .select-btn {
     background: var(--white);
-    border: 1px solid #e5e7eb;
+    border: 1px solid #E7DED3;
     padding: 16px 10px;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 0.95rem;
     font-family: inherit;
-    color: var(--text-dark);
+    color: var(--warm-text);
     cursor: pointer;
     transition: all 0.2s;
     display: flex;
@@ -599,7 +604,7 @@ a.info-card:hover {
 
 .select-btn:hover {
     border-color: var(--primary);
-    background-color: #fff7ed;
+    background-color: var(--warm-pale);
 }
 
 .select-btn.selected {
@@ -688,15 +693,15 @@ a.info-card:hover {
 .form-wrapper {
     background: var(--white);
     padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(84, 58, 38, 0.05);
+    border: 1px solid #E7DED3;
 }
 
 .summary-box {
-    background: #f9fafb;
+    background: var(--warm-pale);
     padding: 16px;
-    border-radius: 8px;
+    border-radius: 12px;
     margin-bottom: 24px;
     border-left: 4px solid var(--primary);
 }
@@ -704,7 +709,7 @@ a.info-card:hover {
 .summary-box h4 {
     font-size: 0.95rem;
     margin-bottom: 8px;
-    color: var(--text-muted);
+    color: var(--warm-muted);
 }
 
 .summary-box p {
@@ -735,10 +740,12 @@ a.info-card:hover {
 .form-wrapper input, .form-wrapper textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
+    border: 1px solid #DCCDBB;
+    border-radius: 8px;
     font-size: 1rem;
     font-family: inherit;
+    background: #FFFDF9;
+    color: var(--warm-text);
 }
 
 .form-wrapper input:focus, .form-wrapper textarea:focus {
@@ -753,7 +760,7 @@ a.info-card:hover {
     background-color: var(--primary);
     color: var(--white);
     border: none;
-    border-radius: 6px;
+    border-radius: 10px;
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
@@ -1614,4 +1621,32 @@ a.info-card:hover {
 
 @media (min-width: 641px) {
     .complete-title { white-space: nowrap; }
+}
+
+/* Booking & completion pages — warm unification, following the .home pattern.
+   The /confirm page deliberately does NOT get this scope: its page background
+   and unique layout stay as they are, and only the genuinely shared components
+   (calendar, time-slot buttons, primary buttons — warmed in their base rules
+   above, and used by booking + confirm only) pick up the warm alignment. */
+.warm-page {
+    background: var(--warm-bg);
+    color: var(--warm-text);
+}
+
+.warm-page .page-title {
+    color: var(--warm-text);
+}
+
+.warm-page .btn-ghost {
+    color: var(--warm-text);
+    border-color: #D8C9B8;
+}
+
+.warm-page .btn-ghost:hover {
+    background-color: var(--warm-pale);
+}
+
+@media (max-width: 640px) {
+    .step-container { padding: 20px 16px; }
+    .form-wrapper { padding: 22px 18px; }
 }
