@@ -133,11 +133,8 @@ export default function MenuGroups({
       return (
         <div className="mg-detail">
           <div className="mg-detail-item">
-            <h4 className="mg-detail-name">
-              {m.name}
-              {selectedMenuId === m.id && <span className="mg-selected-tag">選択中</span>}
-            </h4>
-            <p className="mg-detail-meta">{m.duration} <span aria-hidden="true">•</span> {formatPrice(m.price)}</p>
+            <h4 className="mg-detail-name">{m.name}</h4>
+            <p className="mg-detail-meta">{m.duration} <span aria-hidden="true">•</span> {formatPrice(m.price)}{selectedMenuId === m.id && <span className="mg-selected-tag">選択中</span>}</p>
             <p className="mg-detail-desc" style={{ marginBottom: 0 }}>{m.description}</p>
             {disabled && <p className="mg-unavailable">この時間帯は予約枠が足りません</p>}
           </div>
@@ -160,9 +157,8 @@ export default function MenuGroups({
             >
               <span className="mg-course-row-head">
                 <span className="mg-detail-name">{m.name}</span>
-                {selected && <span className="mg-selected-tag">選択中</span>}
               </span>
-              <span className="mg-detail-meta">{m.duration} <span aria-hidden="true">•</span> {formatPrice(m.price)}</span>
+              <span className="mg-detail-meta">{m.duration} <span aria-hidden="true">•</span> {formatPrice(m.price)}{selected && <span className="mg-selected-tag">選択中</span>}</span>
               <span className="mg-course-row-desc">{m.description}</span>
               {disabled && <span className="mg-unavailable">この時間帯は予約枠が足りません</span>}
             </button>
