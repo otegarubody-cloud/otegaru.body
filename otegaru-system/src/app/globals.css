@@ -1435,6 +1435,7 @@ a.info-card:hover {
     font-size: 1.15rem;
     font-weight: 700;
     text-align: center;
+    white-space: nowrap;
     padding: 10px 4px 12px;
 }
 
@@ -1607,7 +1608,14 @@ a.info-card:hover {
     .mg-chips { gap: 10px; }
     .mg-chips-4 { gap: 8px; }
     .mg-chip-top { font-size: 0.85rem; padding: 6px 2px; }
-    .mg-chip-price { font-size: 0.88rem; padding: 8px 2px 9px; }
+    /* vw-based size: in the narrow booking context (container 5% padding +
+       step card + panel padding) a 4-chip track is only ~58px wide at a
+       360px viewport, leaving a ~53px text slot — the old fixed 0.88rem let
+       ¥7,000 (≈4.5em ≈ 63px in Noto Sans JP bold) clip its last digit.
+       At 3.1vw the price renders ≈50px at 360px / ≈54px at 390px, inside
+       the ≈53px / ≈60px slots; the 0.88rem cap restores the previous size
+       once the viewport is wide enough (~455px+). */
+    .mg-chip-price { font-size: clamp(0.66rem, 3.1vw, 0.88rem); padding: 8px 1px 9px; }
     .mg-detail { margin-top: 16px; padding-top: 16px; }
     .mg-book-btn { width: 100%; }
     .mg-course-row { padding: 14px; }
@@ -1663,6 +1671,17 @@ a.info-card:hover {
 
 .warm-page .btn-ghost:hover {
     background-color: var(--warm-pale);
+}
+
+/* Step ④ guidance shown while no menu is selected yet, in place of the
+   customer-info form (which otherwise silently never appears). */
+.step-prompt {
+    background: var(--warm-pale);
+    color: var(--warm-muted);
+    border-radius: 12px;
+    padding: 16px 18px;
+    font-size: 0.95rem;
+    text-align: center;
 }
 
 @media (max-width: 640px) {
