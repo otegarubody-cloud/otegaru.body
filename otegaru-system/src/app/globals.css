@@ -1668,6 +1668,19 @@ a.info-card:hover {
        Scoped to .mg-detail-item so the 30-min course-row names (longer,
        inside a wrapping flex row) keep their current wrapping. */
     .mg-detail-item .mg-detail-name { white-space: nowrap; font-size: clamp(0.8rem, 4.05vw, 1.05rem); }
+    /* Same one-line treatment for the 30-min course-row names, booking
+       mode only (rows exist only there; /menu renders detail items).
+       The row name slot is narrower than the detail slot — container 5%
+       sides, step card −34px, panel −34px, row padding/border −31px →
+       0.9W − 99px ≈ 225px at 360px / ≈239px at 375px / ≈252px at 390px.
+       The longest row name 「もみほぐし整体 30分（上半身）」 is ≈16.7
+       effective em (the 120分 detail name measured ≈16.1em on device;
+       the row name measures ≈1.04× wider — one more full-width kanji,
+       one fewer digit). At 3.5vw it renders ≈210px at 360px / ≈219px
+       at 375px / ≈228px at 390px — inside the slot at all three widths.
+       The 1.05rem cap restores the base size from ~480px up; ≥641px is
+       untouched. */
+    .mg-booking .mg-course-row .mg-detail-name { white-space: nowrap; font-size: clamp(0.7rem, 3.5vw, 1.05rem); }
     .mg-book-btn { width: 100%; }
     .mg-course-row { padding: 14px; }
 }
