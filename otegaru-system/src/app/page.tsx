@@ -105,6 +105,7 @@ export default async function Home() {
               <p>{settings.instagram_id}</p>
             </a>
           </div>
+          <p style={{ textAlign: 'center', color: 'var(--warm-muted)', fontSize: '0.9rem', marginTop: '20px' }}>お支払いは現金のみです</p>
         </div>
       </section>
 
