@@ -1449,6 +1449,43 @@ a.info-card:hover {
     background: var(--primary);
 }
 
+/* Booking mode: a chip can be expanded just to read its details, and
+   expansion alone must never look like a selection — orange is reserved
+   for a chip whose course is actually selected (.selected). */
+.mg-booking .mg-chip.open:not(.selected) {
+    border-color: #E0D2BF;
+    box-shadow: none;
+}
+
+.mg-booking .mg-chip.open:not(.selected) .mg-chip-top {
+    background: #5C4033;
+}
+
+.mg-booking .mg-chip.selected {
+    border-color: var(--primary);
+    box-shadow: 0 10px 24px rgba(234, 88, 12, 0.16);
+}
+
+/* Booking mode: a chip whose courses don't fit the chosen time is no
+   longer a disabled button — tapping it opens the details for reading
+   (it just can't be selected) — but it keeps the muted unavailable look. */
+.mg-booking .mg-chip.unavailable {
+    opacity: 0.45;
+}
+
+.mg-booking .mg-chip.unavailable:hover {
+    border-color: #E0D2BF;
+}
+
+.mg-booking .mg-chip.unavailable .mg-chip-top,
+.mg-booking .mg-chip.unavailable.open .mg-chip-top {
+    background: #A79C90;
+}
+
+.mg-booking .mg-chip.unavailable .mg-chip-price {
+    color: var(--warm-muted);
+}
+
 .mg-chip:disabled {
     opacity: 0.45;
     cursor: not-allowed;
@@ -1617,6 +1654,20 @@ a.info-card:hover {
        once the viewport is wide enough (~455px+). */
     .mg-chip-price { font-size: clamp(0.66rem, 3.1vw, 0.88rem); padding: 8px 1px 9px; }
     .mg-detail { margin-top: 16px; padding-top: 16px; }
+    /* Detail course name on ONE line in both contexts, like /menu already
+       shows it. Measured on the owner's phone (393px viewport): at the old
+       fixed 1.05rem the longest name 「もみほぐし整体 120分（全身）」
+       renders ≈16.1 effective em ≈ 271px, but the booking detail slot is
+       only ≈286px at 393px / ≈256px at 360px (container 5% sides, step
+       card −34px, panel −34px), so it wrapped to two lines in the booking
+       flow (and text-wrap: balance made the wrap look deliberate).
+       nowrap + a vw size keeps it on one line with margin everywhere:
+       at 4.05vw the name is ≈256px at 393px (slot ≈286px), ≈245px at
+       375px (slot ≈270px), ≈235px at 360px (slot ≈256px). The 1.05rem
+       cap restores the previous size from ~414px up; ≥641px is untouched.
+       Scoped to .mg-detail-item so the 30-min course-row names (longer,
+       inside a wrapping flex row) keep their current wrapping. */
+    .mg-detail-item .mg-detail-name { white-space: nowrap; font-size: clamp(0.8rem, 4.05vw, 1.05rem); }
     .mg-book-btn { width: 100%; }
     .mg-course-row { padding: 14px; }
 }
