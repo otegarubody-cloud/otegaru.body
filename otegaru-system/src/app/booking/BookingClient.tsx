@@ -361,17 +361,17 @@ export default function BookingClient({
   }
 
   return (
-    <section className="cta-section" id="booking" style={{ paddingTop: '80px' }}>
+    <section className="cta-section warm-page" id="booking" style={{ paddingTop: '80px' }}>
       <div className="container">
         <div className="text-center" id="booking-intro" style={{ marginBottom: '24px' }}>
           <div style={{ textAlign: 'left', marginBottom: '20px' }}>
-            <a href="/" className="back-link" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+            <a href="/" className="back-link" style={{ color: 'var(--warm-muted)', textDecoration: 'none', fontSize: '0.9rem', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
               ホームに戻る
             </a>
           </div>
           <h1 className="page-title" style={{ marginBottom: '12px', fontSize: '1.8rem' }}>ご予約</h1>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '40px' }}>日付・時間・メニューを選んで、お客様情報をご入力ください。</p>
+          <p style={{ color: 'var(--warm-muted)', marginBottom: '40px' }}>日付・時間・メニューを選んで、お客様情報をご入力ください。</p>
         </div>
 
         <div id="booking-flow" className="booking-flow" style={{ display: 'block' }}>
