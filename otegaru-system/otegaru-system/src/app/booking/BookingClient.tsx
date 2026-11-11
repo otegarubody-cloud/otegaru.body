@@ -436,6 +436,7 @@ export default function BookingClient({
                   <h4>選択内容</h4>
                   <p>日時: <span id="summary-datetime">{selectedDate} {selectedTime}</span></p>
                   <p>メニュー: <span id="summary-menu">{selectedMenu.name} (¥{parseInt(selectedMenu.price).toLocaleString()})</span></p>
+                  <p>お支払い: <span id="summary-payment">現金のみ</span></p>
                 </div>
                 <form id="final-booking-form" onSubmit={submitReservation}>
                   <div className="form-group">
