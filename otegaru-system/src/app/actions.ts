@@ -248,6 +248,8 @@ export async function rescheduleReservation(id: string, newDate: string, newTime
     const weekday = new Date(`${newDate}T00:00:00Z`).getUTCDay()
     let isBusinessDay = weekday === 2 || weekday === 3
     if (availableDates.includes(newDate)) isBusinessDay = true
+    // Googleカレンダー側で「営業」とされた日も営業日として扱う（休業の指定があればそちらが優先）
+    if (gasDates.some(d => d.date === newDate && d.status === '営業')) isBusinessDay = true
     if (closedDates.includes(newDate) || gasDates.some(d => d.date === newDate && d.status === '休業')) {
       isBusinessDay = false
     }
