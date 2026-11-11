@@ -70,7 +70,11 @@ export default async function CompletePage({ searchParams }: { searchParams: Pro
           </p>
 
           <Link href="https://lin.ee/ddFvc0y" target="_blank" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', backgroundColor: '#06C755', color: 'white', borderRadius: '8px', padding: '12px 16px', fontWeight: 500, textDecoration: 'none', marginBottom: '24px', fontSize: '0.875rem' }}>
-            <span style={{ fontWeight: 700 }}>LINE</span>
+            <svg width="50" height="42" viewBox="0 0 60 50" style={{ flexShrink: 0, display: 'block' }} aria-hidden="true">
+              <rect x="4" y="3" width="52" height="34" rx="16" fill="#FFFFFF" />
+              <polygon points="18,33 13,47 30,37" fill="#FFFFFF" />
+              <text x="30" y="20" textAnchor="middle" dominantBaseline="central" fontFamily="Arial, Helvetica, sans-serif" fontSize="13" fontWeight="800" letterSpacing="0.5" fill="#06C755">LINE</text>
+            </svg>
             <span>公式LINEでのご質問<br />お問い合わせはこちら</span>
           </Link>
 
