@@ -78,6 +78,14 @@ export default function MenuGroups({
 
   const [open, setOpen] = useState<{ full: string | null, partial: string | null }>(() => {
     const sel = locateMenu(selectedMenuId)
+    if (booking) {
+      // 予約モードではデフォルトで開かない。「選んだ」と誤解されないよう、
+      // 詳細はタップして初めて出し、選択済みのものがある時だけそれを開く。
+      return {
+        full: sel?.group === 'full' ? sel.key : null,
+        partial: sel?.group === 'partial' ? sel.key : null,
+      }
+    }
     const sixty = fullChips.find(c => c.minutes === 60)
     return {
       full: sel?.group === 'full' ? sel.key : (sixty ? sixty.key : (fullChips[0]?.key ?? null)),
@@ -98,16 +106,24 @@ export default function MenuGroups({
     booking && chip.menus.every(m => isMenuDisabled ? isMenuDisabled(m) : false)
 
   const handleChipClick = (group: GroupKey, chip: Chip) => {
-    if (chipDisabled(chip)) return
-    if (booking && chip.menus.length === 1) {
-      const menu = chip.menus[0]
-      if (!(isMenuDisabled && isMenuDisabled(menu))) {
-        onSelectMenu?.(menu)
+    if (booking) {
+      if (chip.menus.length === 1) {
+        // 単一コースのチップ：タップで詳細を開く。選んだ時間に入るコースなら
+        // そのまま選択もする。入らないコースは読むためだけに開き、選択しない
+        // （オレンジにも「選択中」タグも付けない）。
+        const menu = chip.menus[0]
         setOpen(prev => ({ ...prev, [group]: chip.key }))
+        if (!(isMenuDisabled && isMenuDisabled(menu))) {
+          onSelectMenu?.(menu)
+        }
+        return
       }
+      // 複数コースを持つチップ（30分）は開閉のみ。選択は各行のボタンから
+      setOpen(prev => ({ ...prev, [group]: prev[group] === chip.key ? null : chip.key }))
       return
     }
-    // ページモード、または複数コースを持つチップ（30分）は開閉のみ
+    if (chipDisabled(chip)) return
+    // ページモードは開閉のみ
     setOpen(prev => ({ ...prev, [group]: prev[group] === chip.key ? null : chip.key }))
   }
 
@@ -189,9 +205,9 @@ export default function MenuGroups({
               <button
                 type="button"
                 key={chip.key}
-                className={`mg-chip ${isOpen ? 'open' : ''} ${isSelected ? 'selected' : ''}`}
-                disabled={disabled}
+                className={`mg-chip ${isOpen ? 'open' : ''} ${isSelected ? 'selected' : ''} ${disabled ? 'unavailable' : ''}`}
                 aria-expanded={isOpen}
+                aria-disabled={disabled || undefined}
                 onClick={() => handleChipClick(group, chip)}
               >
                 <span className="mg-chip-top">{chip.minutes}分</span>
@@ -206,7 +222,7 @@ export default function MenuGroups({
   }
 
   return (
-    <div className="mg-wrap">
+    <div className={`mg-wrap${booking ? ' mg-booking' : ''}`}>
       {renderGroup('full', 'もみほぐし整体（全身）', '全身をしっかりほぐす、人気のスタンダードコース', FullBodyIcon, fullChips)}
       {renderGroup('partial', 'おてがる整体', 'すきま時間に、気になる部分をリフレッシュ', PartialIcon, partialChips)}
     </div>
