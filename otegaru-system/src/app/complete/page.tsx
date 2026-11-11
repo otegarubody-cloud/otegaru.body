@@ -16,6 +16,16 @@ export default async function CompletePage({ searchParams }: { searchParams: Pro
     })
   }
 
+  let priceLabel: string | null = null
+  if (res?.menu) {
+    const menu = await prisma.menu.findFirst({
+      where: { name: res.menu }
+    })
+    if (menu) {
+      priceLabel = `¥${parseInt(menu.price).toLocaleString()}`
+    }
+  }
+
   return (
     <>
       <Header />
@@ -41,6 +51,10 @@ export default async function CompletePage({ searchParams }: { searchParams: Pro
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={{ color: 'var(--warm-muted)' }}>メニュー</span>
                 <span style={{ fontWeight: 500 }}>{res?.menu || '-'}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span style={{ color: 'var(--warm-muted)' }}>料金</span>
+                <span style={{ fontWeight: 500 }}>{priceLabel || '-'}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={{ color: 'var(--warm-muted)' }}>お名前</span>
