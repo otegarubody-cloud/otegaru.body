@@ -418,6 +418,16 @@ export default function BookingClient({
             </div>
           )}
 
+          {/* メニュー未選択の間は、④を「選択してください」の案内表示にする。
+              （従来はフォームが黙って出ないだけで、次に何をすればいいか分からなかった。
+                時刻変更で選択が取り消された場合もここに戻る） */}
+          {step >= 3 && !selectedMenu && (
+            <div className="step-container visible-step" id="step-4">
+              <h3>④ お客様情報のご入力</h3>
+              <p className="step-prompt">メニューを選択してください</p>
+            </div>
+          )}
+
           {step >= 4 && selectedMenu && (
             <div className={`step-container ${step >= 4 ? 'visible-step' : 'hidden-step'}`} id="step-4">
               <h3>④ お客様情報のご入力</h3>
