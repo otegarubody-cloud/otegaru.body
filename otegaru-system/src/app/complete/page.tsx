@@ -20,7 +20,7 @@ export default async function CompletePage({ searchParams }: { searchParams: Pro
     <>
       <Header />
 
-      <section className="page-section" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
+      <section className="page-section warm-page" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
         <div className="container complete-container" style={{ maxWidth: '500px', textAlign: 'center' }}>
           <div style={{ width: '64px', height: '64px', borderRadius: '50%', backgroundColor: 'rgba(234, 88, 12, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect x="3" y="8" width="18" height="14" rx="2"></rect><path d="M3 10h18"></path><path d="m9 16 2 2 4-4"></path></svg>
@@ -28,28 +28,28 @@ export default async function CompletePage({ searchParams }: { searchParams: Pro
           
           <h2 className="page-title complete-title" style={{ fontSize: '1.5rem', marginBottom: '12px' }}><span className="sp-block">ご予約</span><span className="sp-block">ありがとうございます</span></h2>
           
-          <div style={{ background: 'white', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 1px 2px rgba(0,0,0,0.05)', textAlign: 'left', marginBottom: '24px' }}>
+          <div style={{ background: 'white', border: '1px solid #E7DED3', borderRadius: '16px', boxShadow: '0 12px 28px rgba(84, 58, 38, 0.05)', textAlign: 'left', marginBottom: '24px' }}>
             <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.875rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: 'var(--text-muted)' }}>日付</span>
+                <span style={{ color: 'var(--warm-muted)' }}>日付</span>
                 <span style={{ fontWeight: 500 }}>{res?.date || '-'}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: 'var(--text-muted)' }}>時間</span>
+                <span style={{ color: 'var(--warm-muted)' }}>時間</span>
                 <span style={{ fontWeight: 500 }}>{res?.time || '-'}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: 'var(--text-muted)' }}>メニュー</span>
+                <span style={{ color: 'var(--warm-muted)' }}>メニュー</span>
                 <span style={{ fontWeight: 500 }}>{res?.menu || '-'}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: 'var(--text-muted)' }}>お名前</span>
+                <span style={{ color: 'var(--warm-muted)' }}>お名前</span>
                 <span style={{ fontWeight: 500 }}>{res?.name ? `${res.name} 様` : '-'}</span>
               </div>
             </div>
           </div>
 
-          <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '16px' }}>
+          <p style={{ fontSize: '0.875rem', color: 'var(--warm-muted)', marginBottom: '16px' }}>
             <span className="sp-block">当日はお時間に余裕をもって</span><span className="sp-block">お越しください。</span>
           </p>
 
