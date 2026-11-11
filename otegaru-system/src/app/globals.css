@@ -520,7 +520,7 @@ a.info-card:hover {
 
 .calendar-days-header {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     text-align: center;
     font-weight: 700;
     color: var(--warm-muted);
@@ -533,7 +533,7 @@ a.info-card:hover {
 
 .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 6px;
 }
 
@@ -582,7 +582,7 @@ a.info-card:hover {
     border-color: var(--primary);
     box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
 }
-.time-grid { grid-template-columns: repeat(6, 1fr); }
+.time-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 .menu-select-grid { grid-template-columns: repeat(2, 1fr); }
 
 .select-btn {
@@ -930,14 +930,14 @@ a.info-card:hover {
 @media (max-width: 900px) {
     .menu-grid, .cards-grid { grid-template-columns: repeat(2, 1fr); }
     .footer-grid { grid-template-columns: 1fr; }
-    .time-grid { grid-template-columns: repeat(4, 1fr); }
+    .time-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 @media (max-width: 600px) {
     .menu-grid, .cards-grid { grid-template-columns: 1fr; }
     .nav { display: none; }
 
-    .time-grid { grid-template-columns: repeat(3, 1fr); }
+    .time-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .menu-select-grid { grid-template-columns: 1fr; }
 }
 
@@ -1368,12 +1368,15 @@ a.info-card:hover {
     min-width: 0;
 }
 
-.mg-group-title {
+/* Selector carries .mg-group so it outranks `.step-container h3` (0,1,1),
+   which otherwise overrides this title's size/margin inside the booking flow. */
+.mg-group .mg-group-title {
     font-size: 1.35rem;
     font-weight: 700;
     line-height: 1.4;
     color: var(--warm-text);
     white-space: nowrap;
+    margin: 0;
 }
 
 .mg-group-sub {
@@ -1389,11 +1392,11 @@ a.info-card:hover {
 }
 
 .mg-chips-4 {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .mg-chips-2 {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     max-width: 440px;
     margin: 0 auto;
     width: 100%;
@@ -1592,10 +1595,14 @@ a.info-card:hover {
 @media (max-width: 640px) {
     .menu-page .menu-section { padding: 56px 0 72px; }
     .mg-group { padding: 20px 16px 22px; border-radius: 18px; margin-bottom: 20px; }
-    .mg-group-head { gap: 12px; margin-bottom: 18px; }
-    .mg-group-icon { width: 52px; height: 52px; }
-    .mg-group-icon svg { width: 26px; height: 26px; }
-    .mg-group-title { font-size: 1.02rem; letter-spacing: 0; }
+    .mg-group-head { gap: 10px; margin-bottom: 18px; }
+    .mg-group-icon { width: 46px; height: 46px; }
+    .mg-group-icon svg { width: 24px; height: 24px; }
+    /* vw-based size: the 11-glyph nowrap title must fit the head-text slot
+       even in the narrow booking context (container + step card + panel
+       padding). At 390px this yields ~16.8px (title ≈185px vs ≈216px slot);
+       at 360px ~15.8px (≈174px vs ≈199px slot). */
+    .mg-group .mg-group-title { font-size: clamp(0.92rem, 4.4vw, 1.05rem); letter-spacing: 0; }
     .mg-group-sub { font-size: 0.8rem; }
     .mg-chips { gap: 10px; }
     .mg-chips-4 { gap: 8px; }
@@ -1604,6 +1611,12 @@ a.info-card:hover {
     .mg-detail { margin-top: 16px; padding-top: 16px; }
     .mg-book-btn { width: 100%; }
     .mg-course-row { padding: 14px; }
+}
+
+@media (max-width: 370px) {
+    .mg-group-head { gap: 8px; }
+    .mg-group-icon { width: 40px; height: 40px; }
+    .mg-group-icon svg { width: 22px; height: 22px; }
 }
 
 /* Phrases that must break only at a chosen point on narrow screens */
@@ -1631,6 +1644,12 @@ a.info-card:hover {
 .warm-page {
     background: var(--warm-bg);
     color: var(--warm-text);
+    /* Safeguard only (the group-title sizing fix is the root-cause fix):
+       nothing inside the booking/completion sections may ever make the
+       page scroll sideways. The sticky header lives outside this section,
+       so clipping here cannot break it. */
+    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 .warm-page .page-title {
