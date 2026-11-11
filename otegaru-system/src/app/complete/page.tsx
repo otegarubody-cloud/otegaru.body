@@ -55,11 +55,11 @@ export default async function CompletePage({ searchParams }: { searchParams: Pro
 
           <Link href="https://lin.ee/ddFvc0y" target="_blank" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', backgroundColor: '#06C755', color: 'white', borderRadius: '8px', padding: '12px 16px', fontWeight: 500, textDecoration: 'none', marginBottom: '24px', fontSize: '0.875rem' }}>
             <span style={{ fontWeight: 700 }}>LINE</span>
-            <span>公式LINEでご質問・変更のご連絡はこちら</span>
+            <span>公式LINEでご質問<br />お問い合わせはこちら</span>
           </Link>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <Link href="/confirm" className="btn-primary-large" style={{ width: '100%', margin: 0, padding: '12px', fontSize: '0.875rem' }}>予約を確認する</Link>
+            <Link href="/confirm" className="btn-primary-large" style={{ width: '100%', margin: 0, padding: '12px', fontSize: '0.875rem' }}>予約を確認・変更する</Link>
             <Link href="/" className="btn-ghost" style={{ width: '100%', fontSize: '0.875rem' }}>ホームに戻る</Link>
           </div>
         </div>
