@@ -63,15 +63,15 @@ export default async function CompletePage({ searchParams }: { searchParams: Pro
             </div>
           </div>
 
+          <p style={{ fontSize: '0.875rem', color: 'var(--warm-muted)', marginBottom: '16px' }}>お支払いは現金のみです</p>
+
           <p style={{ fontSize: '0.875rem', color: 'var(--warm-muted)', marginBottom: '16px' }}>
             <span className="sp-block">当日はお時間に余裕をもって</span><span className="sp-block">お越しください。</span>
           </p>
 
-          <p style={{ fontSize: '0.875rem', color: 'var(--warm-muted)', marginBottom: '16px' }}>お支払いは現金のみです</p>
-
           <Link href="https://lin.ee/ddFvc0y" target="_blank" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', backgroundColor: '#06C755', color: 'white', borderRadius: '8px', padding: '12px 16px', fontWeight: 500, textDecoration: 'none', marginBottom: '24px', fontSize: '0.875rem' }}>
             <span style={{ fontWeight: 700 }}>LINE</span>
-            <span>公式LINEでご質問<br />お問い合わせはこちら</span>
+            <span>公式LINEでのご質問<br />お問い合わせはこちら</span>
           </Link>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
