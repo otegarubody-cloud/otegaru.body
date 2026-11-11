@@ -218,6 +218,10 @@ export default function ConfirmClient({
       if (availableDates.includes(dateStr)) {
         isAvailable = true
       }
+      // Googleカレンダー側で「営業」とされた日も営業日として扱う（休業の指定があればそちらが優先）
+      if (gasDates.some(d => d.date === dateStr && d.status === '営業')) {
+        isAvailable = true
+      }
       if (closedDates.includes(dateStr) || gasDates.some(d => d.date === dateStr && d.status === '休業')) {
         isAvailable = false
       }
