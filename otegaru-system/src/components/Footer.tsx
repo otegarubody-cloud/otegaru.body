@@ -12,8 +12,8 @@ export default function Footer() {
         <div className="footer-column">
           <div className="footer-title">おてがる整体</div>
           <p className="footer-catch">
-            日々の疲れを、<br />
-            おてがるリセット。
+            がんばる自分に<br />
+            おてがるご褒美。
           </p>
         </div>
 
