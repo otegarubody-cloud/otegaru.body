@@ -56,6 +56,11 @@ export default function AdminClient({ initialReservations, initialMenus, initial
   const [settings, setSettings] = useState(mappedSettings)
 
   const handleStatusChange = async (id: string, newStatus: string) => {
+        if (newStatus === 'cancel') {
+      const r = reservations.find((x) => x.id === id)
+      const label = r ? `${r.date.replace(/-/g, '/')} ${r.time} ${r.name} 様（${r.menu}）` : 'この予約'
+      if (!window.confirm(`${label} をキャンセルしますか？`)) return
+    }
     const res = await updateReservationStatus(id, newStatus)
     if (res.success) {
       setReservations(prev => prev.map(r => r.id === id ? { ...r, status: newStatus } : r))
